@@ -2,10 +2,10 @@ import cv2
 import serial
 import time
 
-# Connect to Arduino (change 'COMX' to the correct port)
+
 try:
-    arduino = serial.Serial('COM13', 9600)  # ← Replace 'COMX' with your Arduino's COM port (e.g., 'COM3', 'COM13')
-    time.sleep(2)  # Wait for the serial connection to establish
+    arduino = serial.Serial('COM13', 9600) 
+    time.sleep(2)  
     print(f"Successfully connected to Arduino on port {arduino.port}")
 except serial.SerialException as e:
     print(f"Error connecting to Arduino: {e}")
@@ -15,8 +15,7 @@ except serial.SerialException as e:
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
 eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_eye.xml")
 
-cap = cv2.VideoCapture(0)  # Use 0 for the default webcam
-
+cap = cv2.VideoCapture(0)  
 if not cap.isOpened():
     print("Error: Could not open webcam.")
     exit()
@@ -39,7 +38,7 @@ while True:
         eyes = eye_cascade.detectMultiScale(roi_gray, scaleFactor=1.1, minNeighbors=3, minSize=(20, 20))
         if len(eyes) > 0:
             eyes_detected = True
-        break  # Only consider the first detected face
+        break  
 
     if eyes_detected:
         score = max(0, score - 1)
